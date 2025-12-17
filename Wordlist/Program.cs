@@ -1,8 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Wordlist;
+﻿using Wordlist;
 using Wordlist.Formatter;
 
-Console.WriteLine("Hello, World!");
 
 var absolutePath = "";
 
