@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Wordlist.UnitTest/Wordlist.UnitTest.csproj" />
+  <Project Path="Wordlist/Wordlist.csproj" />
+</Solution>
