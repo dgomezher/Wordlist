@@ -9,7 +9,7 @@ namespace Wordlist
         {
             ArgumentNullException.ThrowIfNull(words);
 
-            var set = new HashSet<string>(words);
+            var set = new HashSet<string>(words, StringComparer.Ordinal);
 
             var visited = new HashSet<string>();
 

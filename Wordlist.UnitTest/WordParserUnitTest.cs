@@ -1,5 +1,4 @@
-﻿using Wordlist.Finders;
-using Wordlist.Formatter;
+﻿using Wordlist.Formatter;
 using Wordlist.Models;
 using Xunit;
 
@@ -46,7 +45,8 @@ namespace Wordlist.UnitTest
                                 .ToList();
 
             // Assert
-            List<string> expected = [
+            List<string> expected = new List<string>
+            {
               "al + bums => albums",
               "bar + ely => barely",
               "be + foul => befoul",
@@ -55,9 +55,36 @@ namespace Wordlist.UnitTest
               "jig + saw => jigsaw",
               "tail + or => tailor",
               "we + aver => weaver"
-            ];
+            };
 
             Assert.Equal(expected, results);
+        }
+
+        [Fact]
+        public void Should_preserve_case_and_find_case_sensitive_concatenation()
+        {
+            // Arrange
+            var wordlist = new HashSet<string>(StringComparer.Ordinal)
+            {
+                // correct-case parts and combined 6-letter word
+                "Go", "ogle", "Google",
+
+                // differently-cased variants to ensure case-sensitivity is enforced
+                "go", "Ogle"
+            };
+
+            var finder = new WordConcatenationFinder();
+            var formatter = new WordFormatter();
+
+            // Act
+            var results = finder.FindCandidates(wordlist)
+                                .Select(formatter.Format)
+                                .ToList();
+
+            // Assert
+            Assert.Contains("Go + ogle => Google", results);
+
+            Assert.DoesNotContain("go + Ogle => google", results);
         }
     }
 }
